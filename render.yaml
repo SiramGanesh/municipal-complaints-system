@@ -28,6 +28,11 @@ services:
     buildCommand: npm install && npm run build
     staticPublishPath: build
     plan: free
+    # SPA rewrite: any unknown path (e.g. /login, /dashboard) falls back
+    # to index.html so React Router can handle it on refresh.
+    rewrites:
+      - source: /*
+        destination: /index.html
     envVars:
       - key: REACT_APP_API_URL
         value: https://municipal-complaints-backend.onrender.com/api
