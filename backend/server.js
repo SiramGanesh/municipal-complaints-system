@@ -20,6 +20,7 @@ const express = require('express');
 const cors = require('cors');
 const path = require('path');
 const connectDB = require('./config/db');
+const keepAlive = require('./utils/keepAlive');
 
 // Import route files
 const authRoutes = require('./routes/authRoutes');
@@ -91,6 +92,13 @@ app.get('/', (req, res) => {
   });
 });
 
+// Health check endpoint used by:
+// 1. Render (to verify the service is up)
+// 2. The keep-alive cron job (to self-ping)
+app.get('/health', (req, res) => {
+  res.status(200).json({ ok: true });
+});
+
 // ============================================
 // Error Handling Middleware
 // ============================================
@@ -124,4 +132,9 @@ app.listen(PORT, () => {
   📍 API: http://localhost:${PORT}/api
   ============================================
   `);
+
+  // Start the keep-alive cron job so Render
+  // doesn't spin the service down after 15 min
+  // of inactivity. See utils/keepAlive.js.
+  keepAlive.start();
 });

@@ -20,6 +20,11 @@ services:
         fromDatabase:
           name: municipal-complaints-db
           property: connectionString
+      # URL of the deployed frontend. The backend's keep-alive cron
+      # (utils/keepAlive.js) pings this every 14 min so the static
+      # site stays warm.
+      - key: FRONTEND_URL
+        value: https://municipal-complaints-system-frontend1.onrender.com
 
   - type: web
     name: municipal-complaints-frontend
