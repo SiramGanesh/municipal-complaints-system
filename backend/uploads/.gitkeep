@@ -1,0 +1,3 @@
+# This folder stores uploaded complaint images.
+# It is auto-created when you run the server.
+# The .gitkeep file ensures Git tracks this empty folder.

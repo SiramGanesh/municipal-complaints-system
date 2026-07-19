@@ -1,0 +1,39 @@
+services:
+  - type: web
+    name: municipal-complaints-backend
+    env: node
+    rootDir: backend
+    buildCommand: npm install
+    startCommand: npm start
+    plan: free
+    healthCheckPath: /
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: PORT
+        value: 10000
+      - key: JWT_SECRET
+        generateValue: true
+      - key: JWT_EXPIRE
+        value: 7d
+      - key: MONGODB_URI
+        fromDatabase:
+          name: municipal-complaints-db
+          property: connectionString
+
+  - type: web
+    name: municipal-complaints-frontend
+    env: static
+    rootDir: frontend
+    buildCommand: npm install && npm run build
+    staticPublishPath: build
+    plan: free
+    envVars:
+      - key: REACT_APP_API_URL
+        value: https://municipal-complaints-backend.onrender.com/api
+
+ databases:
+  - name: municipal-complaints-db
+    plan: free
+    databaseName: municipalcomplaints
+    user: municipalcomplaints

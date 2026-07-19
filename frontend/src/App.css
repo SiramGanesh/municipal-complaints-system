@@ -1,0 +1,19 @@
+@import "tailwindcss";
+
+@theme {
+  --color-brand-50: #f0fdf4;
+  --color-brand-100: #dcfce7;
+  --color-brand-500: #00b25c;
+  --color-brand-600: #00994d;
+  --color-brand-700: #008040;
+  --font-sans: "Inter", system-ui, -apple-system, sans-serif;
+}
+
+@layer base {
+  body {
+    font-family: "Inter", system-ui, -apple-system, sans-serif;
+    background-color: #f6f7f6;
+    color: #1a1a1a;
+    -webkit-font-smoothing: antialiased;
+  }
+}
